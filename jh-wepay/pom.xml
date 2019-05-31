@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jh-pay</artifactId>
+        <groupId>top.xucg</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jh-wepay</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>wepay-core</module>
+        <module>wepay</module>
+        <module>wepay-spring-boot-starter</module>
+    </modules>
+
+    <!--    依赖版本控制-->
+    <properties>
+        <wepay.version>1.0</wepay.version>
+        <wepay-core.version>1.0</wepay-core.version>
+        <wepay-spring-boot-starter.version>1.0</wepay-spring-boot-starter.version>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.xucg</groupId>
+                <artifactId>wepay</artifactId>
+                <version>${wepay.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.xucg</groupId>
+                <artifactId>wepay-core</artifactId>
+                <version>${wepay-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.xucg</groupId>
+                <artifactId>wepay-spring-boot-starter</artifactId>
+                <version>${wepay-spring-boot-starter.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

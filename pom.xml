@@ -6,7 +6,95 @@
 
     <groupId>top.xucg</groupId>
     <artifactId>jh-pay</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
+    <modules>
+        <module>jh-wepay</module>
+        <module>jh-alipay</module>
+    </modules>
 
 
+    <!--    依赖版本控制-->
+    <properties>
+        <java.version>1.8</java.version>
+        <jh-wepay.version>1.0</jh-wepay.version>
+        <jh-alipay.version>1.0</jh-alipay.version>
+
+        <fastjson.version>1.2.7</fastjson.version>
+        <commons-lang3.version>3.7</commons-lang3.version>
+        <slf4j-api.version>1.7.25</slf4j-api.version>
+        <httpclient.version>4.5.3</httpclient.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <bcprov-jdk16.version>1.46</bcprov-jdk16.version>
+        <spring-beans.version>5.1.7.RELEASE</spring-beans.version>
+        <spring-context.version>5.1.7.RELEASE</spring-context.version>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.xucg</groupId>
+                <artifactId>jh-wepay</artifactId>
+                <version>${jh-wepay.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.xucg</groupId>
+                <artifactId>jh-alipay</artifactId>
+                <version>${jh-alipay.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk16</artifactId>
+                <version>${bcprov-jdk16.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring-beans.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring-context.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
