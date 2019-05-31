@@ -271,7 +271,7 @@ public class WXPayUtil {
      * @return
      */
     public static Logger getLogger() {
-        Logger logger = LoggerFactory.getLogger("wxpay java com.xucg.weixinsdk.core.payconfig.sdk");
+        Logger logger = LoggerFactory.getLogger("wxpay java sdk");
         return logger;
     }
 

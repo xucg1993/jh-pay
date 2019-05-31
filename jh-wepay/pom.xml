@@ -14,7 +14,7 @@
     <modules>
         <module>wepay-core</module>
         <module>wepay</module>
-        <module>wepay-spring-boot-starter</module>
+<!--        <module>wepay-spring-boot-starter</module>-->
     </modules>
 
     <!--    依赖版本控制-->
@@ -37,11 +37,23 @@
                 <artifactId>wepay-core</artifactId>
                 <version>${wepay-core.version}</version>
             </dependency>
-            <dependency>
-                <groupId>top.xucg</groupId>
-                <artifactId>wepay-spring-boot-starter</artifactId>
-                <version>${wepay-spring-boot-starter.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>top.xucg</groupId>-->
+<!--                <artifactId>wepay-spring-boot-starter</artifactId>-->
+<!--                <version>${wepay-spring-boot-starter.version}</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
+
+
+    <distributionManagement>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://repo.rdc.aliyun.com/repository/30630-release-syPsKt/</url>
+        </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://repo.rdc.aliyun.com/repository/30630-snapshot-bnCFiS/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

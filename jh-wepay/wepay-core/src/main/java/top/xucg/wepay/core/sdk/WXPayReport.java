@@ -63,7 +63,7 @@ public class WXPayReport {
         public String toString() {
             return "ReportInfo{" +
                     "version='" + version + '\'' +
-                    ", com.xucg.weixinsdk.core.payconfig.sdk='" + sdk + '\'' +
+                    ", sdk='" + sdk + '\'' +
                     ", uuid='" + uuid + '\'' +
                     ", timestamp=" + timestamp +
                     ", elapsedTimeMillis=" + elapsedTimeMillis +

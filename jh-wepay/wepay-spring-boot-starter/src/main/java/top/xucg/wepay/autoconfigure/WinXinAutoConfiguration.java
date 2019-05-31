@@ -2,6 +2,7 @@ package top.xucg.wepay.autoconfigure;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,20 +16,19 @@ import top.xucg.wepay.core.config.PayConfig;
  */
 @Configuration
 @ConditionalOnClass(PayConfig.class)
-@EnableConfigurationProperties(WinXinSdkProperties.class)
-public class WinXinSdkAutoConfiguration {
+@EnableConfigurationProperties(WinXinProperties.class)
+public class WinXinAutoConfiguration {
 
-    private final WinXinSdkProperties winXinSdkProperties;
+    private final WinXinProperties winXinSdkProperties;
 
-    public WinXinSdkAutoConfiguration(WinXinSdkProperties winXinSdkProperties) {
+    public WinXinAutoConfiguration(WinXinProperties winXinSdkProperties) {
         this.winXinSdkProperties = winXinSdkProperties;
     }
 
     @Bean
     @ConditionalOnMissingBean(PayConfig.class)
-//    @ConditionalOnProperty(prefix = "wx-sdk", value = "enabled", havingValue = "true")
+    @ConditionalOnProperty(prefix = "wx-sdk.pay-config", value = "enabled", havingValue = "true")
     PayConfig payConfig() {
-
         return winXinSdkProperties.getPayConfig();
     }
 

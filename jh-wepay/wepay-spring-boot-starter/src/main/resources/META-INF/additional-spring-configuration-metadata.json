@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "sourceType": "top.xucg.wepay.autoconfigure.WinXinProperties",
+      "name": "wx-sdk",
+      "type": "top.xucg.wepay.autoconfigure.WinXinProperties"
+    },
+    {
+      "sourceType": "top.xucg.wepay.autoconfigure.WinXinProperties",
+      "name": "wx-sdk.pay-config",
+      "sourceMethod": "getPayConfig()",
+      "type": "top.xucg.wepay.core.config.PayConfig"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "top.xucg.wepay.core.config.PayConfig",
+      "name": "wx-sdk.pay-config.app-id"
+    },
+    {
+      "sourceType": "top.xucg.wepay.core.config.PayConfig",
+      "name": "wx-sdk.pay-config.mch-id"
+    },
+    {
+      "sourceType": "top.xucg.wepay.core.config.PayConfig",
+      "name": "wx-sdk.pay-config.pay-key"
+    },
+    {
+      "sourceType": "top.xucg.wepay.core.config.PayConfig",
+      "name": "wx-sdk.pay-config.cert-path"
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 package top.xucg.wepay.core.config;
 
 
-
 import top.xucg.wepay.core.sdk.IWXPayDomain;
 import top.xucg.wepay.core.sdk.WXPayConfig;
 

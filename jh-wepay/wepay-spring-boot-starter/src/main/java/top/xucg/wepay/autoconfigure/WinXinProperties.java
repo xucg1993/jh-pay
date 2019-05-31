@@ -9,8 +9,8 @@ import top.xucg.wepay.core.config.PayConfig;
  * @author xuchenguang
  * @since 2019.01.02
  */
-@ConfigurationProperties(prefix = WinXinSdkProperties.WX_SDK_PREFIX)
-public class WinXinSdkProperties {
+@ConfigurationProperties(prefix = WinXinProperties.WX_SDK_PREFIX)
+public class WinXinProperties {
 
     public static final String WX_SDK_PREFIX = "wx-sdk";
 
