@@ -1,8 +1,6 @@
-package top.xucg.wepay.pay.pay;
+package top.xucg.wepay.pay.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import top.xucg.wepay.core.config.PayConfig;
 import top.xucg.wepay.core.sdk.AesUtil;
 import top.xucg.wepay.core.sdk.WXPay;
@@ -12,6 +10,7 @@ import top.xucg.wepay.pay.model.MicroPayModel;
 import top.xucg.wepay.pay.model.ResultJson;
 import top.xucg.wepay.pay.model.WXPayModel;
 import top.xucg.wepay.pay.model.WXRefundModel;
+import top.xucg.wepay.pay.service.WePayService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,13 +19,20 @@ import java.util.Map;
 
 /**
  * @author xuchenguang
- * @since 2019.05.23
+ * @since 2019.05.31
  */
-@Component
-public class WeChatPay extends WXBase {
+public class WePayServiceImpl implements WePayService {
 
-    @Autowired
-    PayConfig payConfig;
+    protected PayConfig payConfig;
+
+
+    public PayConfig getPayConfig() {
+        return payConfig;
+    }
+
+    public void setConfig(PayConfig config) {
+        this.payConfig = config;
+    }
 
     /**
      * 付款码支付
@@ -35,14 +41,10 @@ public class WeChatPay extends WXBase {
      * @return
      * @throws Exception
      */
-    public String microPay(PayConfig config, MicroPayModel model) throws Exception {
+    public String microPay(MicroPayModel model) throws Exception {
         WXPayUtil.getLogger().info("付款码支付");
 
-        if (config == null) {
-            config = payConfig;
-        }
-
-        WXPay wxpay = new WXPay(config);
+        WXPay wxpay = new WXPay(getPayConfig());
 
 
         Map<String, String> payModelMap = WXPayUtil.parseMap(model, Map.class);
@@ -60,7 +62,6 @@ public class WeChatPay extends WXBase {
         return ResultJson.getResultJsonFail(response);
     }
 
-
     /**
      * 公众号支付
      *
@@ -73,7 +74,7 @@ public class WeChatPay extends WXBase {
 
         model.setTradeType(WXPayConstants.TRADE_TYPE_JSAPI);
 
-        WXPay wxpay = getWXPay();
+        WXPay wxpay = new WXPay(getPayConfig());
 
         Map<String, String> payModelMap = WXPayUtil.parseMap(model, Map.class);
 
@@ -90,22 +91,12 @@ public class WeChatPay extends WXBase {
         return ResultJson.getResultJsonFail(result);
     }
 
-
-    /**
-     * 小程序支付
-     *
-     * @param model
-     * @return
-     * @throws Exception
-     */
     public String miniAppPay(WXPayModel model) throws Exception {
         WXPayUtil.getLogger().info("小程序支付");
 
         model.setTradeType(WXPayConstants.TRADE_TYPE_JSAPI);
 
-        PayConfig config = getWXConfig();
-
-        WXPay wxpay = new WXPay(config);
+        WXPay wxpay = new WXPay(getPayConfig());
 
 
         Map<String, String> payModelMap = WXPayUtil.parseMap(model, Map.class);
@@ -113,7 +104,7 @@ public class WeChatPay extends WXBase {
 
         Map<String, String> result = wxpay.unifiedOrder(payModelMap);
 
-        Map map = WXPayUtil.buildMiniPayMap(result, config.getKey());
+        Map map = WXPayUtil.buildMiniPayMap(result, getPayConfig().getKey());
 
 
         WXPayUtil.getLogger().info(map.toString());
@@ -125,21 +116,13 @@ public class WeChatPay extends WXBase {
         return ResultJson.getResultJsonFail(map);
     }
 
-
-    /**
-     * 二维码 支付
-     *
-     * @param model
-     * @return
-     * @throws Exception
-     */
     public String scanCodePay(WXPayModel model) throws Exception {
         WXPayUtil.getLogger().info("二维码 支付");
 
 
         model.setTradeType(WXPayConstants.TRADE_TYPE_NATIVE);
 
-        WXPay wxpay = getWXPay();
+        WXPay wxpay = new WXPay(getPayConfig());
 
         Map<String, String> payModelMap = WXPayUtil.parseMap(model, Map.class);
 
@@ -156,22 +139,13 @@ public class WeChatPay extends WXBase {
         return ResultJson.getResultJsonFail(result);
     }
 
-
-    /**
-     * APP支付
-     *
-     * @param model
-     * @return
-     * @throws Exception
-     */
     public String appPay(WXPayModel model) throws Exception {
         WXPayUtil.getLogger().info("APP 支付");
 
 
         model.setTradeType(WXPayConstants.TRADE_TYPE_APP);
 
-
-        WXPay wxpay = getWXPay();
+        WXPay wxpay = new WXPay(getPayConfig());
 
 
         Map<String, String> payModelMap = WXPayUtil.parseMap(model, Map.class);
@@ -189,22 +163,13 @@ public class WeChatPay extends WXBase {
         return ResultJson.getResultJsonFail(result);
     }
 
-
-    /**
-     * H5 支付
-     *
-     * @param model
-     * @return
-     * @throws Exception
-     */
     public String wapPay(WXPayModel model) throws Exception {
         WXPayUtil.getLogger().info("H5 支付");
 
 
         model.setTradeType(WXPayConstants.TRADE_TYPE_MWEB);
 
-
-        WXPay wxpay = getWXPay();
+        WXPay wxpay = new WXPay(getPayConfig());
 
 
         Map<String, String> payModelMap = WXPayUtil.parseMap(model, Map.class);
@@ -222,15 +187,6 @@ public class WeChatPay extends WXBase {
         return ResultJson.getResultJsonFail(result);
     }
 
-
-    /**
-     * 支付回调
-     *
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
     public String callback(HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
             String xmlData = WXPayUtil.getRequestBody(request);
@@ -243,7 +199,7 @@ public class WeChatPay extends WXBase {
                 return null;
             }
 
-            WXPay wxpay = getWXPay();
+            WXPay wxpay = new WXPay(getPayConfig());
 
 
             Map<String, String> notifyMap = WXPayUtil.xmlToMap(xmlData);
@@ -270,17 +226,8 @@ public class WeChatPay extends WXBase {
         }
     }
 
-
-    /**
-     * 支付结果查询
-     *
-     * @param model
-     * @return
-     * @throws Exception
-     */
     public String orderQuery(WXPayModel model) throws Exception {
-
-        WXPay wxpay = getWXPay();
+        WXPay wxpay = new WXPay(getPayConfig());
 
 
         Map<String, String> payModelMap = WXPayUtil.parseMap(model, Map.class);
@@ -346,18 +293,10 @@ public class WeChatPay extends WXBase {
         }
     }
 
-
-    /**
-     * 订单关闭
-     *
-     * @param model
-     * @return
-     * @throws Exception
-     */
     public String reverse(WXPayModel model) throws Exception {
         try {
 
-            WXPay wxpay = getWXPay();
+            WXPay wxpay = new WXPay(getPayConfig());
 
 
             Map<String, String> payModelMap = WXPayUtil.parseMap(model, Map.class);
@@ -416,16 +355,8 @@ public class WeChatPay extends WXBase {
         return ResultJson.getResultJsonError();
     }
 
-
-    /**
-     * 申请退款
-     *
-     * @param model
-     * @return
-     * @throws Exception
-     */
     public String refund(WXRefundModel model) throws Exception {
-        WXPay wxpay = getWXPay();
+        WXPay wxpay = new WXPay(getPayConfig());
 
 
         Map<String, String> refundModelMap = WXPayUtil.parseMap(model, Map.class);
@@ -538,17 +469,9 @@ public class WeChatPay extends WXBase {
         return ResultJson.getResultJsonFail(result);
     }
 
-
-    /**
-     * 退款查询
-     *
-     * @param model
-     * @return
-     * @throws Exception
-     */
     public String refundQuery(WXRefundModel model) throws Exception {
         try {
-            WXPay wxpay = getWXPay();
+            WXPay wxpay = new WXPay(getPayConfig());
 
 
             Map<String, String> refundModelMap = WXPayUtil.parseMap(model, Map.class);
@@ -618,21 +541,11 @@ public class WeChatPay extends WXBase {
         }
     }
 
-
-    /**
-     * 微信退款回调
-     *
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
     public String refundCallback(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String xmlData = WXPayUtil.getRequestBody(request);
 
         try {
-            PayConfig config = getWXConfig();
-            WXPay wxpay = new WXPay(config);
+            WXPay wxpay = new WXPay(getPayConfig());
 
             Map<String, String> notifyMap = WXPayUtil.xmlToMap(xmlData);
 
@@ -642,7 +555,7 @@ public class WeChatPay extends WXBase {
                 String reqInfo = notifyMap.get("req_info");
 
 
-                String key = WXPayUtil.MD5(config.getKey()).toLowerCase();
+                String key = WXPayUtil.MD5(getPayConfig().getKey()).toLowerCase();
 
 
                 String decrypt = AesUtil.decrypt(reqInfo, key);
@@ -693,9 +606,4 @@ public class WeChatPay extends WXBase {
         WXPayUtil.getLogger().info("微信申请退款结果: 系统错误");
         return ResultJson.getResultJsonError();
     }
-
-
-//    public static String panduan(){
-//
-//    }
 }
