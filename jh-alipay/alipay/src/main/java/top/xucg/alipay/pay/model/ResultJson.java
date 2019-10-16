@@ -1,5 +1,6 @@
 
-package top.xucg.wepay.pay.model;
+package top.xucg.alipay.pay.model;
+
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;

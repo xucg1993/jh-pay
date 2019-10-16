@@ -9,22 +9,20 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>alipay</artifactId>
+    <artifactId>alipay-core</artifactId>
+
 
     <dependencies>
+        <!--https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java-->
         <dependency>
-            <groupId>top.xucg</groupId>
-            <artifactId>alipay-core</artifactId>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.7.89.ALL</version>
         </dependency>
-
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
         </dependency>
     </dependencies>
+
 </project>

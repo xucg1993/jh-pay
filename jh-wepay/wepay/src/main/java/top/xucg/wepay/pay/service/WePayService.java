@@ -1,7 +1,7 @@
 package top.xucg.wepay.pay.service;
 
 import org.springframework.stereotype.Component;
-import top.xucg.wepay.core.config.PayConfig;
+import top.xucg.wepay.core.config.WePayConfig;
 import top.xucg.wepay.pay.model.MicroPayModel;
 import top.xucg.wepay.pay.model.WXPayModel;
 import top.xucg.wepay.pay.model.WXRefundModel;
@@ -20,7 +20,7 @@ public interface WePayService {
     /**
      * 支付配置
      */
-    void setConfig(PayConfig config);
+    void setConfig(WePayConfig config);
 
     /**
      * 付款码支付

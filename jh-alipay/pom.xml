@@ -5,7 +5,7 @@
     <parent>
         <artifactId>jh-pay</artifactId>
         <groupId>top.xucg</groupId>
-        <version>1.0</version>
+        <version>1.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,27 @@
     <packaging>pom</packaging>
     <modules>
         <module>alipay</module>
+        <module>alipay-core</module>
     </modules>
 
+    <properties>
+        <alipay.version>1.0.2</alipay.version>
+        <alipay-core.version>1.0.2</alipay-core.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.xucg</groupId>
+                <artifactId>alipay</artifactId>
+                <version>${alipay.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.xucg</groupId>
+                <artifactId>alipay-core</artifactId>
+                <version>${alipay-core.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
