@@ -7,7 +7,7 @@
     <groupId>top.xucg</groupId>
     <artifactId>jh-pay</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.0.2</version>
     <modules>
         <module>jh-wepay</module>
         <module>jh-alipay</module>
@@ -16,11 +16,12 @@
 
     <!--    依赖版本控制-->
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <jh-wepay.version>1.0</jh-wepay.version>
-        <jh-alipay.version>1.0</jh-alipay.version>
+        <jh-wepay.version>1.0.2</jh-wepay.version>
+        <jh-alipay.version>1.0.2</jh-alipay.version>
 
-        <fastjson.version>1.2.7</fastjson.version>
+        <fastjson.version>1.2.58</fastjson.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <httpclient.version>4.5.3</httpclient.version>
@@ -97,4 +98,15 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://repo.rdc.aliyun.com/repository/30630-release-syPsKt/</url>
+        </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://repo.rdc.aliyun.com/repository/30630-snapshot-bnCFiS/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

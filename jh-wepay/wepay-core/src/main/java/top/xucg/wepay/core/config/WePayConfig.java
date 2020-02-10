@@ -10,7 +10,7 @@ import java.io.*;
  * @author xuchenguang
  * @since 2019.05.23
  */
-public class PayConfig extends WXPayConfig implements Serializable {
+public class WePayConfig extends WXPayConfig implements Serializable {
 
     private String appId;
     private String mchId;
@@ -33,21 +33,23 @@ public class PayConfig extends WXPayConfig implements Serializable {
         this.certPath = certPath;
     }
 
+    @Override
     public String getAppID() {
         return appId;
     }
 
-
+    @Override
     public String getMchID() {
         return mchId;
     }
 
-
+    @Override
     public String getKey() {
         return payKey;
     }
 
 
+    @Override
     public InputStream getCertStream() {
         ByteArrayInputStream certBis = null;
         try {
@@ -64,7 +66,7 @@ public class PayConfig extends WXPayConfig implements Serializable {
         return certBis;
     }
 
-
+    @Override
     public IWXPayDomain getWXPayDomain() {
         return new IWXPayDomain() {
             public void report(String domain, long elapsedTimeMillis, Exception ex) {

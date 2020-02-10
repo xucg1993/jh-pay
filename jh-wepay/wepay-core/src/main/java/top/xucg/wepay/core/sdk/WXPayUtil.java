@@ -201,8 +201,10 @@ public class WXPayUtil {
             if (k.equals(WXPayConstants.FIELD_SIGN)) {
                 continue;
             }
-            if (data.get(k).trim().length() > 0) // 参数值为空，则不参与签名
+            // 参数值为空，则不参与签名
+            if (data.get(k).trim().length() > 0) {
                 sb.append(k).append("=").append(data.get(k).trim()).append("&");
+            }
         }
         sb.append("key=").append(key);
         if (WXPayConstants.SignType.MD5.equals(signType)) {
@@ -306,27 +308,30 @@ public class WXPayUtil {
         String successValue = "SUCCESS";
         String returnCodeValue = "return_code";
         String resultCodeValue = "result_code";
-        return (successValue.equalsIgnoreCase((String) map.get(returnCodeValue)) && successValue.equalsIgnoreCase((String) map.get(resultCodeValue)));
+        return (successValue.equalsIgnoreCase(map.get(returnCodeValue)) && successValue.equalsIgnoreCase(map.get(resultCodeValue)));
     }
 
 
-    public static Map buildMiniPayMap(Map<String, String> map, String payKey) throws Exception {
+    public static void buildMiniPayMap(Map<String, String> map, String payKey) throws Exception {
         long date = Calendar.getInstance().getTimeInMillis() / 1000L;
 
-        map.put("prepay_id", "prepay_id=" + map.get("prepay_id"));
-        StringBuilder sb = new StringBuilder();
-        sb.append("appId=").append(map.get("appid"));
-        sb.append("&nonceStr=").append(map.get("nonce_str"));
-        sb.append("&package=").append(map.get("prepay_id"));
-        sb.append("&signType=").append("MD5");
-        sb.append("&timeStamp=").append(date);
-        sb.append("&key=").append(payKey);
+        String prepayId = "prepay_id=" + map.get("prepay_id");
 
-        map.put("paySign", MD5(sb.toString()));
+        HashMap<String, String> build = new HashMap<String, String>(16);
+        if (map.get(WXPayConstants.SUB_APPID) != null) {
+            build.put("appId", map.get(WXPayConstants.SUB_APPID));
+        } else {
+            build.put("appId", map.get(WXPayConstants.APPID));
+        }
+        build.put("nonceStr", map.get("nonce_str"));
+        build.put("package", prepayId);
+        build.put("signType", WXPayConstants.HMAC_SHA256);
+        build.put("timeStamp", String.valueOf(date));
+
+        map.put("prepay_id", prepayId);
+        map.put("paySign", WXPayUtil.generateSignature(build, payKey, WXPayConstants.SignType.HMACSHA256));
         map.put("timeStamp", String.valueOf(date));
-        return map;
     }
-
 
 
     public static String getRequestBody(HttpServletRequest request) {
@@ -357,7 +362,6 @@ public class WXPayUtil {
 
     public static String resultSuccess() {
         StringBuffer sb = new StringBuffer();
-        sb = new StringBuffer();
         sb.append("<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>");
         return sb.toString();
     }
@@ -365,7 +369,6 @@ public class WXPayUtil {
 
     public static String resultFail() {
         StringBuffer sb = new StringBuffer();
-        sb = new StringBuffer();
         sb.append("<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[ERROR]]></return_msg></xml>");
         return sb.toString();
     }
@@ -383,5 +386,10 @@ public class WXPayUtil {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml><return_code><![CDATA[" + code + "]]></return_code><return_msg><![CDATA[" + msg + "]]></return_msg></xml>");
         return sb.toString();
+    }
+
+    public static void main(String[] args) throws Exception {
+        String s = MD5("appId=wx6517d517c844dd15&nonceStr=cpeH227aASp6m81C&nonceStr=cpeH227aASp6m81C&package=prepay_id=wx14115240661235feddfc1d341790830900&signType=MD5&key=H68LB0G5CyeFArcYleQh93GYJP6U2a8X");
+        System.out.println(s);
     }
 }

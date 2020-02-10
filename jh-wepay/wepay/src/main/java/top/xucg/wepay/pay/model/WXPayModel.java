@@ -13,6 +13,9 @@ public class WXPayModel {
     @JSONField(name = "sub_appid")
     private String subAppId;
 
+    @JSONField(name = "sub_openid")
+    private String subOpenId;
+
     @JSONField(name = "mch_id")
     private String mchId;
 
@@ -106,6 +109,14 @@ public class WXPayModel {
     public WXPayModel setSubAppId(String subAppId) {
         this.subAppId = subAppId;
         return this;
+    }
+
+    public String getSubOpenId() {
+        return subOpenId;
+    }
+
+    public void setSubOpenId(String subOpenId) {
+        this.subOpenId = subOpenId;
     }
 
     public String getMchId() {

@@ -95,5 +95,10 @@ public class WXPayConstants {
     public static final String NOTENOUGH = "NOTENOUGH";
     public static final String ORDERNOTEXIST = "ORDERNOTEXIST";
     public static final String FREQUENCY_LIMITED = "FREQUENCY_LIMITED";
+    public static final String HMAC_SHA256 = "HMAC-SHA256";
+    public static final String SUB_APPID = "sub_appid";
+    public static final String APPID = "appid";
+
+
 }
 
