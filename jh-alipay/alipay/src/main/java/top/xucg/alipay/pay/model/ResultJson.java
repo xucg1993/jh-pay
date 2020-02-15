@@ -50,8 +50,6 @@ public class ResultJson {
      * 登录异常
      */
 
-    public static final Integer CHECK_LOGIN_EXCEPTION = -3;
-
     public static final String MSG_SUCCESS = "SUCCESS";
 
     public static final String MSG_FAIL = "FAIL";
